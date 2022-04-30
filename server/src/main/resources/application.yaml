@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: ${APP_NAME:crypto-tokens}
+  datasource:
+    url: ${POSTGRES_CONNECTION_URL:jdbc:postgresql://}${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/postgres
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+  jpa:
+    hibernate.ddl-auto: ${DATABASE_DDL:create-drop}
+    defer-datasource-initialization: true
+    generate-ddl: true
+    show-sql: true
+  sql:
+    init:
+      mode: always
+
+server:
+  port: ${SERVER_PORT:7000}
+
+logging:
+  level:
+    com: ${LOG_LEVEL:DEBUG}
+#    org: ${LOG_LEVEL:DEBUG}
+
+token:
+    minVolume: 1000000
+    maxVolume: 30000000
+    minPrice: 50
+    maxPrice: 150000

@@ -1,0 +1,15 @@
+insert into tokens (token, symbol) values
+('Bitcoin', 'XBT'),
+('Ethereum', 'ETH'),
+('Ripple', 'XRP'),
+('Tether USD', 'USDT'),
+('Litecoin', 'LTC'),
+('Bitcoin Cash', 'BCH'),
+('Chainlink', 'LNK'),
+('Cardano', 'ADA'),
+('Polkadot', 'DOT'),
+('Lumen', 'XLM'),
+('EOS', 'EOS'),
+('Monero', 'XMR'),
+('TRON', 'TRX'),
+('Tezos', 'XTZ');
