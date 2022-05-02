@@ -1,0 +1,10 @@
+<div *ngIf="tokens == null">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<div *ngIf="tokens != null">
+  <mat-tab-group>
+    <mat-tab *ngFor="let token of tokens" [label]="token | titlecase">
+        Test
+    </mat-tab>
+  </mat-tab-group>
+</div>
