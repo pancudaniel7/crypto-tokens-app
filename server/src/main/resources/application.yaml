@@ -19,7 +19,7 @@ server:
 
 logging:
   level:
-    com: ${LOG_LEVEL:DEBUG}
+    com.crypto.tokens: ${LOG_LEVEL:DEBUG}
 #    org: ${LOG_LEVEL:DEBUG}
 
 token:
