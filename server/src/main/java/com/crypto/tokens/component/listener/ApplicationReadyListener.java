@@ -1,4 +1,4 @@
-package com.crypto.tokens.component;
+package com.crypto.tokens.component.listener;
 
 import com.crypto.tokens.model.entity.EnrichedTokenEntity;
 import com.crypto.tokens.service.InMemoryTokenService;

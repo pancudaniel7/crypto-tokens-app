@@ -5,15 +5,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-import static com.crypto.tokens.util.Names.IN_MEMORY_STRUCTURE;
+import static com.crypto.tokens.util.Names.*;
 import static com.crypto.tokens.util.Numbers.generateRandomBigDecimalFromRange;
 import static com.crypto.tokens.util.Numbers.generateRandomIntFromRange;
 import static java.lang.Thread.sleep;
+import static java.util.Collections.singletonMap;
 
 
 @Slf4j
@@ -22,6 +24,7 @@ import static java.lang.Thread.sleep;
 public class UpdateInMemoryTokenService {
 
     private final ConfigurableApplicationContext context;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     @Value("${token.minVolume}")
     private String minVolume;
@@ -32,18 +35,25 @@ public class UpdateInMemoryTokenService {
     @Value("${token.maxPrice}")
     private String maxPrice;
 
+    @Value("${websockets.broker}")
+    private String broker;
+
+    @Value("${websockets.topics.token}")
+    private String tokenTopic;
+
     public void start() {
         Map<String, EnrichedTokenEntity> inMemoryTokenMap = context.getBean(IN_MEMORY_STRUCTURE, Map.class);
-        Runnable updateInMemoryTokenThread = new UpdateInMemoryTokenThread(inMemoryTokenMap, minVolume, maxVolume, minPrice, maxPrice);
+        Runnable updateInMemoryTokenThread = new UpdateInMemoryTokenThread(inMemoryTokenMap, simpMessagingTemplate,
+                minVolume, maxVolume, minPrice, maxPrice, broker, tokenTopic);
         updateInMemoryTokenThread.run();
     }
 
     @Slf4j
     @RequiredArgsConstructor
     static class UpdateInMemoryTokenThread implements Runnable {
-
         private final Map<String, EnrichedTokenEntity> inMemoryTokenMap;
-        private final String minVolume, maxVolume, minPrice, maxPrice;
+        private final SimpMessagingTemplate simpMessagingTemplate;
+        private final String minVolume, maxVolume, minPrice, maxPrice, broker, tokenTopic;
 
         @Override
         public void run() {
@@ -74,6 +84,12 @@ public class UpdateInMemoryTokenService {
                 EnrichedTokenEntity entity = inMemoryTokenMap.get(randomKey);
                 entity.setVolume(randomVolume);
                 entity.setPrice(randomPrice);
+
+                log.trace("Updated token with symbol {}", randomKey);
+
+                // send update token message to clients
+                simpMessagingTemplate.convertAndSend(broker + tokenTopic, entity,
+                        singletonMap(MESSAGE_TOKEN_HEADER, MESSAGE_TOKEN_UPDATE_VALUE));
             }
         }
     }

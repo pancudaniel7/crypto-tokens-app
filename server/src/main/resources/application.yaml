@@ -22,8 +22,17 @@ logging:
     com.crypto.tokens: ${LOG_LEVEL:DEBUG}
 #    org: ${LOG_LEVEL:DEBUG}
 
+websockets:
+  prefix: /app
+  endpoint: /socket
+  broker: /topic
+  topics:
+    token: /tokens
+
 token:
     minVolume: 1000000
     maxVolume: 30000000
     minPrice: 50
     maxPrice: 150000
+
+
