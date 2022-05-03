@@ -85,7 +85,7 @@ public class UpdateInMemoryTokenService {
                 entity.setVolume(randomVolume);
                 entity.setPrice(randomPrice);
 
-                log.trace("Updated token with symbol {}", randomKey);
+                log.trace("Updated token with symbol: {} with price: {} and volume: {}", randomKey, randomPrice, randomVolume);
 
                 // send update token message to clients
                 simpMessagingTemplate.convertAndSend(broker + tokenTopic, entity,

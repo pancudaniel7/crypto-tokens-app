@@ -15,5 +15,5 @@ public final class Numbers {
         return randomBigDecimal.setScale(3, RoundingMode.HALF_UP);
     }
 
-    public static BiFunction<Integer, Integer, Integer> generateRandomIntFromRange = (min, max) -> (int) ((max + 1 - min) * Math.random() + min);
+    public static BiFunction<Integer, Integer, Integer> generateRandomIntFromRange = (min, max) -> (int) ((max - min) * Math.random() + min);
 }
