@@ -17,3 +17,4 @@ public final class Numbers {
 
     public static BiFunction<Integer, Integer, Integer> generateRandomIntFromRange = (min, max) -> (int) ((max - min) * Math.random() + min);
 }
+

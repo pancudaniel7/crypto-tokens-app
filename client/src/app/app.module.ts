@@ -7,8 +7,8 @@ import { MaterialModule } from './material/material.module';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenPageComponent } from './token-page/token-page.component';
-import { inherits } from 'util';
-import { StartupServiceService } from './service/startup-service.service';
+import { StartupService } from './service/startup.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, NotFoundPageComponent, TokenPageComponent],
@@ -17,13 +17,14 @@ import { StartupServiceService } from './service/startup-service.service';
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [
-    StartupServiceService,
+    StartupService,
     {
       provide: APP_INITIALIZER,
       useFactory: initFunction,
-      deps: [StartupServiceService],
+      deps: [StartupService],
       multi: true,
     },
   ],
@@ -31,6 +32,6 @@ import { StartupServiceService } from './service/startup-service.service';
 })
 export class AppModule {}
 
-export function initFunction(startupService: StartupServiceService) {
+export function initFunction(startupService: StartupService) {
   return () => startupService.init();
 }

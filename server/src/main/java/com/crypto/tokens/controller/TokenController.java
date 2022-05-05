@@ -22,7 +22,7 @@ public class TokenController {
     public ResponseEntity<Map<String, EnrichedTokenDTO>> getTokens() {
         Map<String, EnrichedTokenDTO> inMemoryTokens = inMemoryTokenService.getInMemoryTokens();
 
-        if(inMemoryTokens.size() == 0){
+        if (inMemoryTokens.size() == 0) {
             return status(503).header("Retry-After", "3").build();
         }
 

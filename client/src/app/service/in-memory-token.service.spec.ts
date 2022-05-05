@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SocketServiceService } from './socket-service.service';
+import { InMemoryTokenService } from './in-memory-token.service';
 
-describe('SocketServiceService', () => {
-  let service: SocketServiceService;
+describe('InMemoryTokenService', () => {
+  let service: InMemoryTokenService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SocketServiceService);
+    service = TestBed.inject(InMemoryTokenService);
   });
 
   it('should be created', () => {
