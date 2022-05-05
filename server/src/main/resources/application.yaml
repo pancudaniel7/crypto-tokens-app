@@ -22,6 +22,9 @@ logging:
     com.crypto.tokens: ${LOG_LEVEL:DEBUG}
 #    org: ${LOG_LEVEL:DEBUG}
 
+cors:
+  origin: http://localhost:4200
+
 websockets:
   prefix: /app
   endpoint: /socket

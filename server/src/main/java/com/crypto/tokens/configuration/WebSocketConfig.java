@@ -18,6 +18,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Value("${websockets.endpoint}")
     private String endpoint;
 
+    @Value("${cors.origin}")
+    private String origin;
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes(prefix)
@@ -27,7 +30,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint(endpoint)
-                .setAllowedOrigins("*")
+                .setAllowedOrigins(origin)
                 .withSockJS();
     }
 }

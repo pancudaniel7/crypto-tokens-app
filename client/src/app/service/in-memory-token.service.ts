@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +22,7 @@ export class InMemoryTokenService {
     this.set(inMemoryTokenMap);
   }
 
-  update(key: string, value: any) {
+  createOrUpdate(key: string, value: any) {
     let inMemoryTokenMap = this.get();
 
     inMemoryTokenMap[key] = value;

@@ -1,8 +1,4 @@
-import {
-  HttpClient,
-} from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import * as http from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import * as core from '@angular/core';
 import { InMemoryTokenService } from './in-memory-token.service';
 import { environment as env } from '../../environments/environment';
@@ -39,18 +35,17 @@ export class StartupService {
                 return of(err);
               }
               return throwError(() => new Error('Fail to get tokens.'));
-            }),
-            delayWhen(() => interval(Math.random() * 3000))
+            })
           )
         )
       )
       .subscribe((resp) => {
-        this.inMemoryTokenService.set(resp.body)
+        this.inMemoryTokenService.set(resp.body);
       });
   }
 
   init() {
     this.setupInMemoryMap();
-    this.socketService.connect()
+    this.socketService.connect();
   }
 }

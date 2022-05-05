@@ -7,8 +7,8 @@ export const environment = {
   apiUrl: "http://localhost:7000",
   socketEndpoint: "/socket",
   tokenTopicPath: "/topic/tokens",
-  tokenAPIPath: "/v1/tokens"
-
+  tokenAPIPath: "/v1/tokens",
+  tokenKeyIdentifier: "symbol"
 };
 
 /*
