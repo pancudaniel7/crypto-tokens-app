@@ -2,6 +2,8 @@ import {
   HttpClient,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as http from '@angular/common/http';
+import * as core from '@angular/core';
 import { InMemoryTokenService } from './in-memory-token.service';
 import { environment as env } from '../../environments/environment';
 import {
@@ -12,17 +14,19 @@ import {
   retryWhen,
   interval,
 } from 'rxjs';
+import { SocketService } from './socket.service';
 
-@Injectable({
+@core.Injectable({
   providedIn: 'root',
 })
 export class StartupService {
   constructor(
     private inMemoryTokenService: InMemoryTokenService,
+    private socketService: SocketService,
     private http: HttpClient
   ) {}
 
-  private socketConnect() {
+  private setupInMemoryMap() {
     this.http
       .get<any[]>(env.apiUrl + env.tokenAPIPath, {
         observe: 'response',
@@ -46,6 +50,7 @@ export class StartupService {
   }
 
   init() {
-    this.socketConnect();
+    this.setupInMemoryMap();
+    this.socketService.connect()
   }
 }
