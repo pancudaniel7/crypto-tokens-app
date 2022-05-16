@@ -19,7 +19,7 @@ server:
 
 logging:
   level:
-    com.crypto.tokens: ${LOG_LEVEL:DEBUG}
+    com.crypto.tokens: ${LOG_LEVEL:TRACE}
 #    org: ${LOG_LEVEL:DEBUG}
 
 cors:
